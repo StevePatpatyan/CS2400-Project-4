@@ -57,12 +57,32 @@ public class RevesActionThread extends ActionThread
 
         // ADD INITIALIZATION CODE HERE
 
+        // Step 3
+        a = new Pole("A", disks);
+        b = new Pole("B", disks);
+        c = new Pole("C", disks);
+        d = new Pole("D", disks);
+        
+        // Step 4
+        for (int i = 0; i < disks; i++) {
+            Disk disk = new Disk(disks-i);
+            a.addDisk(disk);
+        }
     }
         
 
     public void executeApplication()
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
+
+        // Step 7
+        // moveDisk(a, b);
+
+        // Step 9
+        // towersOfHanoi(disks, a, d, b);
+
+        // Step 12
+        reves(disks, a, d, b, c);
     }
 
     /**
@@ -77,6 +97,10 @@ public class RevesActionThread extends ActionThread
         
         // ADD CODE HERE TO MOVE A DISK FROM ONE POLE TO THE OTHER
 
+        // Step 6
+        toMove = from.removeDisk();
+        to.addDisk(toMove);
+
         movesMade++;
         moveString = "Move #" + movesMade 
                         + ": Moved disk " + toMove.getSize() 
@@ -88,7 +112,45 @@ public class RevesActionThread extends ActionThread
 
     
     // ADD METHODS HERE
+
+    // Step 8
+    public void towersOfHanoi(int n, Pole from, Pole to, Pole extra) {
+        if (n == 0) {
+            return;
+        }
+        else {
+            towersOfHanoi(n-1, from, extra, to);
+            moveDisk(from, to);
+            towersOfHanoi(n-1, extra, to, from);
+        }
+    }
     
+    // Step 10
+    public int computeK(int n) {
+         
+        int k = 1; 
+        double triNum = k * (k+1) / 2.0; 
+        while (n > triNum) { 
+        k++; 
+        triNum = k * (k+1) / 2.0;
+            }
+        // Once we find the smallest kth triangular number that n does not exceed, return k 
+        return k; 
+        } 
+
+    // Step 11
+    public void reves(int n, Pole from, Pole to, Pole extra1, Pole extra2) {
+        if (n == 1) {
+            moveDisk(from, to);
+            return;
+        }
+        else {
+            int k = computeK(n);
+            reves(n-k, from, extra1, extra2, to);
+            towersOfHanoi(k, from, to, extra2);
+            reves(n-k, extra1, to, from, extra2);
+        }
+    }
     /***************************************************************************
      * *************************************************************************
      * ALL THE CODE PAST THIS POINT SHOULD NOT BE CHANGED
