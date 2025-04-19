@@ -29,32 +29,56 @@ public class RecursiveMaxOfArray
         int result = 0;
         
         // ADD YOUR CODE HERE
-//vvvvvvvvv ADDED CODE vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv        
+
+        // Step 2
         if( (data == null)
             || (data.length < 1)
             || (from > to)
             || (from < 0)
-            || (to >= data.length))
-            throw new BadArgumentsForMaxException("check arguments");
-        
-        if(from == to)
-            //base case
-            result = data[from];
-        else
-        {
-            // recursive case
-            // split into two parts and find the max of both
-            int middle = (from + to)/2;
-            int result1 = max(data, from, middle);
-            int result2 = max(data, middle+1, to);
-            if(result1 > result2)
-                result = result1;
-            else
-                result = result2;
+            || (to >= data.length)) {
+            throw new BadArgumentsForMaxException("Invalid arguments");
+            }
+        if (from == to) {
+            return data[from];
         }
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        else {
+            int mid = from + (to - from) / 2;
+            int half1Max = max(data, from, mid);
+            int half2Max = max(data, mid + 1, to);
+            if (half1Max > half2Max) {
+                return half1Max;
+            }
+            else {
+                return half2Max;
+            }
+            
+        }
+//vvvvvvvvv ADDED CODE vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv        
+        // if( (data == null)
+        //     || (data.length < 1)
+        //     || (from > to)
+        //     || (from < 0)
+        //     || (to >= data.length))
+        //     throw new BadArgumentsForMaxException("check arguments");
+        
+//         if(from == to)
+//             //base case
+//             result = data[from];
+//         else
+//         {
+//             // recursive case
+//             // split into two parts and find the max of both
+//             int middle = (from + to)/2;
+//             int result1 = max(data, from, middle);
+//             int result2 = max(data, middle+1, to);
+//             if(result1 > result2)
+//                 result = result1;
+//             else
+//                 result = result2;
+//         }
+// //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-        return result;
+//         return result;
     }
     
     
